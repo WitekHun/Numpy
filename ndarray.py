@@ -22,10 +22,21 @@ if __name__ == "__main__":
     end_price = price[-1]
     print(f"Cena końcowa po 5 latach {end_price}zł")
 
-    for x in np.arange(1500, 1900, 0.01):
-        if -np.around(npf.fv(capital_rate, 60, x, 0), 0) == np.around(end_price, 0):
-            monthly_payment = np.round(x, 2)
-            print(f"Minimalna miesięczna wpłata {monthly_payment}zł")
+    predicted_payment = np.arange(1850, 1900, 0.01)
+    print(predicted_payment)
+
+    arr = np.where(
+        (
+            -np.around(npf.fv(capital_rate, 60, predicted_payment, 0), 0)
+            == np.around(end_price, 0)
+        ),
+        predicted_payment,
+        0,
+    )
+    print(arr)
+    index_arr = np.argwhere(arr != 0)
+    monthly_payment = np.around(arr.item(index_arr.item(0)), 2)
+    print(f"Minimalna miesięczna wpłata {monthly_payment}zł")
     end_value = -np.around(npf.fv(capital_rate, 60, monthly_payment, 0), 2)
     print(f"Oszczędności po 5 latach {end_value}zł")
 
