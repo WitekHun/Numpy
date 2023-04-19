@@ -23,7 +23,6 @@ if __name__ == "__main__":
     print(f"Cena końcowa po 5 latach {end_price}zł")
 
     predicted_payment = np.arange(1850, 1900, 0.01)
-    print(predicted_payment)
 
     arr = np.where(
         (
@@ -33,7 +32,7 @@ if __name__ == "__main__":
         predicted_payment,
         0,
     )
-    print(arr)
+
     index_arr = np.argwhere(arr != 0)
     monthly_payment = np.around(arr.item(index_arr.item(0)), 2)
     print(f"Minimalna miesięczna wpłata {monthly_payment}zł")
